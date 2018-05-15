@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    meta charset="utf-8"
+    title 壁打ちDeleter
+  body
+    #wrapper
+      - if flash[:notice]
+        .notice
+          p = flash[:notice]
+      - if flash[:error]
+        .error
+          p = flash[:error]
+      #content
+        == yield

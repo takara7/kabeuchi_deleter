@@ -1,0 +1,7 @@
+/vendor/bundle
+/.bundle
+/.env
+/log/*
+.byebug_history
+*~
+!.gitkeep
