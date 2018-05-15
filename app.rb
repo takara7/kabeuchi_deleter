@@ -42,11 +42,12 @@ class Server < Sinatra::Base
     end
 
     twitter_controller = TwitterController.new(current_users_twitter_client)
-    twitter_controller.delete_recent_tweets_if(count: count) do |t|
-      t.text.start_with?(header)
+    deleted_tweets = twitter_controller.delete_recent_tweets_if(count: count) do |t|
+      !t.retweeted_status? && t.text.start_with?(header)
     end
 
-    flash[:notice] = "ツイートの削除に成功しました"
+    count = deleted_tweets.size
+    flash[:notice] = "#{count}個のツイートを削除しました"
     redirect '/'
   end
 
