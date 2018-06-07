@@ -9,12 +9,12 @@ require 'sinatra/reloader' if development?
 require_relative 'lib/twitter_controller'
 require_relative 'helpers/application_helper'
 
-Dotenv.load
+Dotenv.load if development? || test?
 
 class Server < Sinatra::Base
   configure do
     use Rack::Session::Cookie, key: 'rack.session',
-                               expire_after: 1200,
+                               expire_after: 6 * 3600, # 6 hours
                                secret: Digest::SHA256.hexdigest(rand.to_s)
     use Rack::Flash
     use OmniAuth::Builder do
